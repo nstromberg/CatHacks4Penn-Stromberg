@@ -1,0 +1,16 @@
+Pool of Classes
+  Required marked with x
+
+Preferences
+  Bool
+    I want x to y credit hours
+    I want to finish before x start after y
+    I want a minimum of x hour lunch at y
+    Avoid require section #x in class y
+  Analog
+    Minimize days in class
+    Compact/spread out
+    Finish earlier, start later
+    More/Less credit hours within range
+    
+
