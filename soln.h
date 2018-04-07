@@ -1,10 +1,12 @@
 #include <iostream>
 #include <algorithm>
-#include "sec.h"
-#include "time.h"
 #include <vector>
 #include <list>
-
+#ifndef HEADERS
+#define HEADERS
+#include "time.h"
+#include "sec.h"
+#endif
 class Sol
 {
   private:
@@ -19,4 +21,4 @@ class Sol
     std::vector<Sec> getSecs();
     void print();
 
-}
+};
