@@ -47,3 +47,8 @@ FORMS += \
     lunchwidgetitem.ui \
     requirewidgetitem.ui \
     avoidwidgetitem.ui
+
+DISTFILES += \
+    textout.txt
+
+CONFIG += c++11
