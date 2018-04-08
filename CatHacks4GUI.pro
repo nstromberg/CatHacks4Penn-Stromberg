@@ -31,7 +31,10 @@ SOURCES += \
     lunchwidgetitem.cpp \
     avoidwidgetitem.cpp \
     requirewidgetitem.cpp \
-    coursewidget.cpp
+    coursewidget.cpp \
+    course.cpp \
+    sec.cpp \
+    sol.cpp
 
 HEADERS += \
         mainwindow.h \
@@ -40,7 +43,11 @@ HEADERS += \
     lunchwidgetitem.h \
     avoidwidgetitem.h \
     requirewidgetitem.h \
-    coursewidget.h
+    coursewidget.h \
+    course.h \
+    sec.h \
+    sol.h \
+    stime.h
 
 FORMS += \
         mainwindow.ui \

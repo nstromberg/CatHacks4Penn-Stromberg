@@ -76,7 +76,7 @@ std::vector<Sec> Sol::getSecs()
 {
   return solSecs;
 }
-static void Sol::setWeights(int[] newWeights)
+static void Sol::setWeights(int newWeights[])
 {
   for(int i=0;i<4;i++)
   {

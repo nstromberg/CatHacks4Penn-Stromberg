@@ -1,14 +1,20 @@
 #include "coursewidget.h"
 #include "ui_coursewidget.h"
-#include "course.h"
 
-CourseWidget::CourseWidget(std::string courseName, bool courseRequired, QWidget *parent) :
+
+//CourseWidget::CourseWidget(std::string courseName, bool courseRequired, QWidget *parent) :
+//    QWidget(parent),
+//    ui(new Ui::CourseWidget)
+//{
+//    ui->setupUi(this);
+//    courseObj.name = courseName;
+//    courseObj.req = courseRequired;
+//}
+CourseWidget::CourseWidget( QWidget *parent) :
     QWidget(parent),
     ui(new Ui::CourseWidget)
 {
     ui->setupUi(this);
-    courseObj.name = courseName;
-    courseObj.req = req;
 }
 
 CourseWidget::~CourseWidget()
@@ -18,5 +24,11 @@ CourseWidget::~CourseWidget()
 
 bool CourseWidget::getRequired()
 {
-    return ui->checkBox->tristate();
+    return ui->checkBox->isChecked();
+}
+
+void CourseWidget::setParams(std::string name, bool required){
+    courseObj.name = name;
+    courseObj.req = required;
+    ui->courseName->setText(QString::fromStdString(name));
 }

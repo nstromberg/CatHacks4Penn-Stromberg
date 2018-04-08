@@ -13,14 +13,16 @@ class CourseWidget : public QWidget
     Q_OBJECT
 
 public:
-    explicit CourseWidget(std::string courseName, bool courseRequired, QWidget *parent = 0);
+    explicit CourseWidget(QWidget *parent = 0);
+//    explicit CourseWidget(std::string courseName, bool courseRequired, QWidget *parent=0);
     ~CourseWidget();
     bool getRequired();
     bool getName();
-
+    void setParams(std::string name, bool required);
+    Course courseObj;
 private:
     Ui::CourseWidget *ui;
-    Course courseObj;
+
 };
 
 #endif // COURSEWIDGET_H

@@ -19,7 +19,7 @@ class MainWindow : public QMainWindow
 public:
     explicit MainWindow(QWidget *parent = 0);
     ~MainWindow();
-    std::map<std::string,std::vector<std::vector<int>>> getItems();
+    std::map<std::string,std::vector<std::vector<std::string>>> getItems();
 
 private slots:
 

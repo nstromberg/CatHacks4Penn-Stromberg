@@ -6,7 +6,7 @@
 #include "classwidgetitem.h"
 #include "lunchwidgetitem.h"
 #include "coursewidget.h"
-#include "course.h"
+#include "sol.h"
 #include <fstream>
 #include <map>
 #include <vector>
@@ -64,27 +64,22 @@ void MainWindow::on_addPrefButton_clicked()
 
 }
 
-std::map<std::string, std::vector<std::vector<int>>> MainWindow::getItems()
+std::map<std::string, std::vector<std::vector<std::string>>> MainWindow::getItems()
 {
-    std::map<std::string,std::vector<std::vector<int>>> reqs;
-    std::vector<std::vector<int>> vectorVector;
-    std::vector<int> intVector;
-    std::vector<int> fieldIndex;
+    std::map<std::string,std::vector<std::vector<std::string>>> reqs;
+    std::vector<std::string> stringVector;
     QLineEdit *lineEdit = new QLineEdit;
     QWidget *widget = new QWidget;
 
     for(int i = 0; i<ui->listWidget->count(); i++)
     {
         widget = qobject_cast<QWidget *>(ui->listWidget->itemWidget(ui->listWidget->item(i)));
-        for(int k = 0; k<widget->children().count(); k++)
-            if(typeid(widget->childAt(i,0))==typeid(QLineEdit))
-                fieldIndex.push_back(k);
-        for(int j = 0; j<fieldIndex.size(); j++)
+        foreach(QLineEdit *edit, widget->findChildren<QLineEdit *>())
         {
-            lineEdit = qobject_cast<QLineEdit *>(widget->childAt(fieldIndex.at(j),0));
-            intVector.push_back(lineEdit->text().toInt());
+            stringVector.push_back(edit->text().toStdString());
         }
-        reqs[widget->objectName().toStdString()].push_back(intVector);
+        reqs[widget->objectName().toStdString()].push_back(stringVector);
+        stringVector.clear();
     }
     return reqs;
 }
@@ -92,21 +87,51 @@ std::map<std::string, std::vector<std::vector<int>>> MainWindow::getItems()
 
 void MainWindow::on_calcButton_clicked()
 {
-    //FOR TESTING ONLY
-    std::map<std::string, std::vector<std::vector<int>>> info = getItems();
+    int classStart, classEnd, lunchLength, lunchTime,avoidSection, requireSection, numAvoidWidget, numRequireWidget, compactSliderValue, weights[4];
+    std::string avoidClass, requireClass;
+
+    std::map<std::string, std::vector<std::vector<std::string>>> info = getItems();
     for(auto i = info.begin(); i!=info.end(); i++)
     {
         std::string tmp = i->first;
-        ui->plainTextEdit->appendPlainText(QString::fromStdString(tmp));
-        ui->plainTextEdit->appendPlainText(QString::number(i->second.size()));
-    }
-    //END TESTING
+        std::vector<std::vector<std::string>> second = i->second;
 
-    CourseWidget *widget = new CourseWidget;
+        if(tmp.compare("ClassWidgetItem")==0)
+        {
+            ui->plainTextEdit->appendPlainText(QString::fromStdString("CLASS VALUES: ")+QString::number(std::stoi(second[0][0])) + QString::number(std::stoi(second[0][1])));
+        }else if(tmp.compare("CreditWidgetItem")==0)
+        {
+            ui->plainTextEdit->appendPlainText(QString::fromStdString("CREDIT VALUES: ")+QString::number(std::stoi(second[0][0])) + QString::number(std::stoi(second[0][1])));
+        }else if(tmp.compare("LunchWidgetItem")==0)
+        {
+            ui->plainTextEdit->appendPlainText(QString::fromStdString("LUNCH VALUES: ")+QString::number(std::stoi(second[0][0])) + QString::number(std::stoi(second[0][1])));
+
+        }else if(tmp.compare("AvoidWidgetItem")==0)
+        {
+            for(int i = 0; i<second.size(); i++)
+                ui->plainTextEdit->appendPlainText(QString::fromStdString("AVOID VALUES: ")+QString::number(std::stoi(second[i][0])) + QString::fromStdString(second[i][1]));
+
+        }else if(tmp.compare("RequireWidgetItem")==0)
+        {
+            for(int i = 0; i<second.size(); i++)
+                ui->plainTextEdit->appendPlainText(QString::fromStdString("REQUIRE VALUES: ")+QString::number(std::stoi(second[i][0])) + QString::fromStdString(second[i][1]));
+        }
+    }
+
+    compactSliderValue = ui->compactSlider->value();
+    weights[0] = ui->daysWeight->value();
+    weights[1] = ui->compactWeight->value();
+    weights[2] = ui->startWeight->value();
+    weights[3] = ui->endWeight->value();
+
+    Sol::setSlider(compactSliderValue);
+    Sol::setWeights(weights);
+
+    CourseWidget *widget = new CourseWidget();
     std::vector<Course> courses;
     for(int i = 0; i<ui->classList->count(); i++)
     {
-        widget = qobject_cast<QWidget *>(ui->classList->itemWidget(ui->classList->item(i)));
+        widget = qobject_cast<CourseWidget *>(ui->classList->itemWidget(ui->classList->item(i)));
         courses.push_back(widget->courseObj);
     }
 }
@@ -124,8 +149,8 @@ void MainWindow::on_searchBox_returnPressed()
 
     std::string line;
     std::size_t pos;
-    QListWidgetItem *listWidgetItem = new QListWidgetItem(ui->classList);
-    ui->classList->addItem(listWidgetItem);
+
+
 
     while(fin.good())
     {
@@ -133,11 +158,17 @@ void MainWindow::on_searchBox_returnPressed()
         pos = line.find(search);
         if(pos!=std::string::npos)
         {
-            CourseWidget *course = new CourseWidget(search, false);
+            QListWidgetItem *listWidgetItem = new QListWidgetItem(ui->classList);
+            ui->classList->addItem(listWidgetItem);
+            CourseWidget *course = new CourseWidget();
+            course->setParams(search, false);
             listWidgetItem->setSizeHint(course->sizeHint());
             ui->classList->setItemWidget(listWidgetItem,course);
             break;
         }
+    }
+    if(pos==std::string::npos){
+        ui->plainTextEdit->appendPlainText("Class " + QString::fromStdString(search)+" not in database");
     }
     //ADD TO LIST
 
