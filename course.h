@@ -9,6 +9,7 @@
 class Course
 {
   public:
+    Course();
     Course(std::string newName, bool required);
     std::vector<Sec> sections;
     bool req;

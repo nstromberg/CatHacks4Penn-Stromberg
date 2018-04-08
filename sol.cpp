@@ -33,8 +33,9 @@ void Sol::makeRaw()
   else if(temp<Sol::numDaysEx[0])
     Sol::numDaysEx[0]=temp;
   
-  /*
+  
   rawRatings[daysInClass]=(double)(temp);
+  /*
   rawRatings[compactness]=;
   rawRatings[lateStart]=;
   rawRatings[earlyFinish]=;
