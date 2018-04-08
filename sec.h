@@ -16,11 +16,11 @@ class Sec
   public:
     Sec();
     void readSec(std::ifstream& in);
-    void setTimes(std::list<Time>);
+    void setTimes(std::list<Time>& newTimes);
     std::list<Time> getTimes();
     void setNumber(int num);
     int getNumber();
-    void setCourse(std::string course);
+    void setCourse(std::string courseName);
     std::string getCourse();
     void print();
 

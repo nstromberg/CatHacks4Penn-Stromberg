@@ -1,11 +1,18 @@
+#include <iostream>
 #include <fstream>
 #include <string>
 #include <list>
+#include <iomanip>
 #ifndef HEADERS
 #define HEADERS
 #include "time.h"
 #include "sec.h"
 #endif
+Sec::Sec()
+{
+  course="";
+  number=0;
+}
 void Sec::readSec(std::ifstream& in)
 {
   char trash='\0';
@@ -47,6 +54,36 @@ void Sec::readSec(std::ifstream& in)
       t.day=days[i];
       this->times.push_back(t);
     }
+    this->times.sort(Time::cmp);
   }
 
+}
+void Sec::setTimes(std::list<Time>& newTimes)
+{
+
+  times=newTimes;
+}
+std::list<Time> Sec::getTimes()
+{
+  return times;
+}
+void Sec::setNumber(int num)
+{
+  number=num;
+}
+int Sec::getNumber()
+{
+  return number;
+}
+void Sec::setCourse(std::string courseName)
+{
+  this->course=course;
+}
+std::string Sec::getCourse()
+{
+  return course;
+}
+void Sec::print()
+{
+  std::cout<<course<<"-"<<std::setw(3)<<std::setfill('0')<<number<<'\n';
 }
