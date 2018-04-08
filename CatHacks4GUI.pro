@@ -30,7 +30,8 @@ SOURCES += \
     classwidgetitem.cpp \
     lunchwidgetitem.cpp \
     avoidwidgetitem.cpp \
-    requirewidgetitem.cpp
+    requirewidgetitem.cpp \
+    coursewidget.cpp
 
 HEADERS += \
         mainwindow.h \
@@ -38,7 +39,8 @@ HEADERS += \
     classwidgetitem.h \
     lunchwidgetitem.h \
     avoidwidgetitem.h \
-    requirewidgetitem.h
+    requirewidgetitem.h \
+    coursewidget.h
 
 FORMS += \
         mainwindow.ui \
@@ -46,7 +48,8 @@ FORMS += \
     classwidgetitem.ui \
     lunchwidgetitem.ui \
     requirewidgetitem.ui \
-    avoidwidgetitem.ui
+    avoidwidgetitem.ui \
+    coursewidget.ui
 
 DISTFILES += \
     textout.txt
