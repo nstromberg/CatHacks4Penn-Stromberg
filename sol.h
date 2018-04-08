@@ -7,6 +7,10 @@
 #include "time.h"
 #include "sec.h"
 #endif
+enum rateNames
+{
+  daysInClass,compactness,lateStart,earlyFinish
+};
 class Sol
 {
   private:

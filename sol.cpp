@@ -14,12 +14,14 @@ Sol::Sol()
 }
 bool Sol::isOverlapping()
 {
-
+  for(auto i=solTimes.begin();i!=solTimes.end();i++)
+  {  
+    if( (*i).sover(*(i++)) )
+      return true;
+  }
+  return false;
 }
-int Sol::evaluate()
-{
 
-}
 int Sol::getRating()
 {
   return rating;
