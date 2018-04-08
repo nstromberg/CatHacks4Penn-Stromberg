@@ -2,8 +2,6 @@
 #define CREDITWIDGETITEM_H
 
 #include <QWidget>
-#include <QLineEdit>
-#include <QLabel>
 
 namespace Ui {
 class CreditWidgetItem;

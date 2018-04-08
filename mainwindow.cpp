@@ -5,9 +5,12 @@
 #include "requirewidgetitem.h"
 #include "classwidgetitem.h"
 #include "lunchwidgetitem.h"
+//#include "course.h"
+#include <fstream>
 #include <map>
 #include <vector>
 #include <string>
+#include <typeinfo>
 
 MainWindow::MainWindow(QWidget *parent) :
     QMainWindow(parent),
@@ -60,12 +63,69 @@ void MainWindow::on_addPrefButton_clicked()
 
 }
 
-std::map MainWindow::getItems()
+std::map<std::string, std::vector<std::vector<int>>> MainWindow::getItems()
 {
-    std::map<std::string,std::vector<int>> reqs;
-    for(int i = 0; i<ui->listWidget->count(); i++){
-        vector<int>
-        reqs[ui->listWidget->indexWidget(i)->objectName()]
+    std::map<std::string,std::vector<std::vector<int>>> reqs;
+    std::vector<std::vector<int>> vectorVector;
+    std::vector<int> intVector;
+    std::vector<int> fieldIndex;
+    QLineEdit *lineEdit = new QLineEdit;
+    QWidget *widget = new QWidget;
+
+    for(int i = 0; i<ui->listWidget->count(); i++)
+    {
+        widget = qobject_cast<QWidget *>(ui->listWidget->itemWidget(ui->listWidget->item(i)));
+        for(int k = 0; k<widget->children().count(); k++)
+            if(typeid(widget->childAt(i,0))==typeid(QLineEdit))
+                fieldIndex.push_back(k);
+        for(int j = 0; j<fieldIndex.size(); j++)
+        {
+            lineEdit = qobject_cast<QLineEdit *>(widget->childAt(fieldIndex.at(j),0));
+            intVector.push_back(lineEdit->text().toInt());
+        }
+        reqs[widget->objectName().toStdString()].push_back(intVector);
     }
+    return reqs;
 }
 
+
+void MainWindow::on_calcButton_clicked()
+{
+    //FOR TESTING ONLY
+    std::map<std::string, std::vector<std::vector<int>>> info = getItems();
+    for(auto i = info.begin(); i!=info.end(); i++)
+    {
+        std::string tmp = i->first;
+        ui->plainTextEdit->appendPlainText(QString::fromStdString(tmp));
+        ui->plainTextEdit->appendPlainText(QString::number(i->second.size()));
+    }
+
+    //THIS IS WHERE MOST STUFF WILL GO, CALC RANKING AND SUCH
+}
+
+void MainWindow::on_searchBox_returnPressed()
+{
+    //SEARCH
+    std::string search = ui->searchBox->text().toStdString();
+    std::ifstream fin;
+    fin.open("C:\\Users\\natha\\Documents\\CatHacks4GUI\\output.txt");
+    if(fin.fail())
+    {
+        ui->plainTextEdit->appendPlainText("Error: Could not read database file");
+        //exit(1);
+    }
+    std::string line;
+    std::size_t pos;
+    while(fin.good())
+    {
+        getline(fin,line);
+        pos = line.find(search);
+        if(pos!=std::string::npos)
+        {
+            ui->plainTextEdit->appendPlainText("Class found");
+            break;
+        }
+    }
+    //ADD TO LIST
+
+}

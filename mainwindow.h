@@ -19,12 +19,15 @@ class MainWindow : public QMainWindow
 public:
     explicit MainWindow(QWidget *parent = 0);
     ~MainWindow();
-    getNames(std::string[] items);
-    getValues(std)
+    std::map<std::string,std::vector<std::vector<int>>> getItems();
 
 private slots:
 
     void on_addPrefButton_clicked();
+
+    void on_calcButton_clicked();
+
+    void on_searchBox_returnPressed();
 
 private:
     Ui::MainWindow *ui;
