@@ -2,10 +2,10 @@
 #include <string>
 #include <vector>
 #include <list>
-#ifndef HEADERS
-#define HEADERS
-#include "stime.h"
 #include <fstream>
+#ifndef SEC_H
+#define SEC_H
+#include "stime.h"
 #endif
 class Sec
 {

@@ -3,11 +3,7 @@
 #include <string>
 #include <list>
 #include <iomanip>
-#ifndef HEADERS
-#define HEADERS
-#include "stime.h"
 #include "sec.h"
-#endif
 Sec::Sec()
 {
   course="";
@@ -61,7 +57,7 @@ void Sec::readSec(std::ifstream& in)
 void Sec::setTimes(std::list<STime>& newTimes)
 {
 
-  times=newSTimes;
+  times=newTimes;
 }
 std::list<STime> Sec::getTimes()
 {

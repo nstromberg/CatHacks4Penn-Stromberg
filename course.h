@@ -2,9 +2,8 @@
 #include <algorithm>
 #include <vector>
 #include <list>
-#ifndef HEADERS
-#define HEADERS
-#include "time.h"
+#ifndef COURSE_H
+#define COURSE_H
 #include "sec.h"
 #endif
 class Course

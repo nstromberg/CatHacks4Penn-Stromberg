@@ -4,12 +4,7 @@
 #include <vector>
 #include <list>
 #include <set>
-#ifndef HEADERS
-#define HEADERS
-#include "stime.h"
-#include "sec.h"
 #include "sol.h"
-#endif
 Sol::Sol()
 {
   rating=0;
@@ -39,17 +34,20 @@ void Sol::makeRaw()
     Sol::numDaysEx[0]=temp;
   
   /*
-  rawRatings[Sol::daysInClass]=(double)(temp);
-  rawRatings[Sol::compactness]=;
-  rawRatings[Sol::lateStart]=;
-  rawRatings[Sol::earlyFinish]=;
+  rawRatings[daysInClass]=(double)(temp);
+  rawRatings[compactness]=;
+  rawRatings[lateStart]=;
+  rawRatings[earlyFinish]=;
   */
 }
 
 void Sol::makeScaled()
 {
   //Once all solutions have been found
-  scaledRatings[Sol::daysInClass]=
+  scaledRatings[daysInClass]=(rawRatings[daysInClass]-numDaysEx[0])/(numDaysEx[1]-numDaysEx[0]);
+  scaledRatings[compactness]=(rawRatings[compactness]-compactEx[0])/(compactEx[1]-compactEx[0]);
+  scaledRatings[lateStart]=(rawRatings[lateStart]-meanStartEx[0])/(meanStartEx[1]-meanStartEx[0]);
+  scaledRatings[earlyFinish]=(meanEndEx[1]-rawRatings[earlyFinish])/(meanEndEx[1]-meanEndEx[0]);
 }
 
 void Sol::makeTotal()

@@ -2,9 +2,8 @@
 #include <algorithm>
 #include <vector>
 #include <list>
-#ifndef HEADERS
-#define HEADERS
-#include "stime.h"
+#ifndef SOL_H
+#define SOL_H
 #include "sec.h"
 #endif
 enum rateNames

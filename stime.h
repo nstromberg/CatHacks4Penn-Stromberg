@@ -2,7 +2,7 @@
 #include <algorithm>
 #include <vector>
 #include <list>
-struct STime4
+struct STime
 {
   char day;
   int start;
@@ -11,11 +11,11 @@ struct STime4
   {
     return a.start<b.start;
   }
-  bool sover(STime4 next)
+  bool sover(STime next)
   {
     return(end>next.start);
   }
-  bool over(const STime4 other)
+  bool over(const STime other)
   {
     return(start<other.end && other.start<end);
   }
