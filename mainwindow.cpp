@@ -5,7 +5,8 @@
 #include "requirewidgetitem.h"
 #include "classwidgetitem.h"
 #include "lunchwidgetitem.h"
-//#include "course.h"
+#include "coursewidget.h"
+#include "course.h"
 #include <fstream>
 #include <map>
 #include <vector>
@@ -99,8 +100,15 @@ void MainWindow::on_calcButton_clicked()
         ui->plainTextEdit->appendPlainText(QString::fromStdString(tmp));
         ui->plainTextEdit->appendPlainText(QString::number(i->second.size()));
     }
+    //END TESTING
 
-    //THIS IS WHERE MOST STUFF WILL GO, CALC RANKING AND SUCH
+    CourseWidget *widget = new CourseWidget;
+    std::vector<Course> courses;
+    for(int i = 0; i<ui->classList->count(); i++)
+    {
+        widget = qobject_cast<QWidget *>(ui->classList->itemWidget(ui->classList->item(i)));
+        courses.push_back(widget->courseObj);
+    }
 }
 
 void MainWindow::on_searchBox_returnPressed()
@@ -112,17 +120,22 @@ void MainWindow::on_searchBox_returnPressed()
     if(fin.fail())
     {
         ui->plainTextEdit->appendPlainText("Error: Could not read database file");
-        //exit(1);
     }
+
     std::string line;
     std::size_t pos;
+    QListWidgetItem *listWidgetItem = new QListWidgetItem(ui->classList);
+    ui->classList->addItem(listWidgetItem);
+
     while(fin.good())
     {
         getline(fin,line);
         pos = line.find(search);
         if(pos!=std::string::npos)
         {
-            ui->plainTextEdit->appendPlainText("Class found");
+            CourseWidget *course = new CourseWidget(search, false);
+            listWidgetItem->setSizeHint(course->sizeHint());
+            ui->classList->setItemWidget(listWidgetItem,course);
             break;
         }
     }
