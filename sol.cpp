@@ -9,6 +9,10 @@ Sol::Sol()
 {
   rating=0;
 }
+int Sol::numDaysEx[2]={0,0};
+double Sol::compactEx[2]={0,0};
+double Sol::meanEndEx[2]={0,0};
+double Sol::meanStartEx[2]={0,0};
 bool Sol::isOverlapping()
 {
   for(auto i=solTimes.begin();i!=solTimes.end();i++)
