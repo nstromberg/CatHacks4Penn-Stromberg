@@ -32,8 +32,8 @@ class Sol
     void makeTotal();
     int getRating();
     std::vector<Sec> getSecs();
-    void setWeights(int[] newWeights);
-    void setSlider(int newSlider);
+    static void setWeights(int[] newWeights);
+    static void setSlider(int newSlider);
     void addSec(Sec& newSec);
     void print();
 

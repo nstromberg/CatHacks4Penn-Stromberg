@@ -76,14 +76,14 @@ std::vector<Sec> Sol::getSecs()
 {
   return solSecs;
 }
-void Sol::setWeights(int[] newWeights)
+static void Sol::setWeights(int[] newWeights)
 {
   for(int i=0;i<4;i++)
   {
     weights[i]=newWeights[i];
   }
 }
-void Sol::setSlider(int newSlider)
+static void Sol::setSlider(int newSlider)
 {
   slider=newSlider;
 }
