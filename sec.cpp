@@ -5,7 +5,7 @@
 #include <iomanip>
 #ifndef HEADERS
 #define HEADERS
-#include "time.h"
+#include "stime.h"
 #include "sec.h"
 #endif
 Sec::Sec()
@@ -46,24 +46,24 @@ void Sec::readSec(std::ifstream& in)
       hour2-=12;
     if(aorp2=='p')
       hour2+=12;
-    Time t;
-    t.start=(hour1+minute1/60)*100;
-    t.end=(hour2+minute2/60)*100;
+    STime t;
+    t.start=(hour1*60+minute1);
+    t.end=(hour2*60+minute2);
     for(int j=0;j<days.length();j++)
     {
       t.day=days[i];
       this->times.push_back(t);
     }
-    this->times.sort(Time::cmp);
+    this->times.sort(STime::cmp);
   }
 
 }
-void Sec::setTimes(std::list<Time>& newTimes)
+void Sec::setTimes(std::list<STime>& newTimes)
 {
 
-  times=newTimes;
+  times=newSTimes;
 }
-std::list<Time> Sec::getTimes()
+std::list<STime> Sec::getTimes()
 {
   return times;
 }

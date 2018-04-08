@@ -2,20 +2,20 @@
 #include <algorithm>
 #include <vector>
 #include <list>
-struct Time
+struct STime4
 {
   char day;
   int start;
   int end;
-  static bool cmp(const Time& a, const Time& b)
+  static bool cmp(const STime& a, const STime& b)
   {
     return a.start<b.start;
   }
-  bool sover(Time next)
+  bool sover(STime4 next)
   {
     return(end>next.start);
   }
-  bool over(const Time other)
+  bool over(const STime4 other)
   {
     return(start<other.end && other.start<end);
   }

@@ -4,7 +4,7 @@
 #include <list>
 #ifndef HEADERS
 #define HEADERS
-#include "time.h"
+#include "stime.h"
 #include "sec.h"
 #endif
 enum rateNames
@@ -14,13 +14,21 @@ enum rateNames
 class Sol
 {
   private:
-    int rating;
-    std::list<Time> solTimes;
+    double rating;
+    std::vector<double> scaledRatings;
+    std::vector<double> rawRatings;
+    std::list<STime> solTimes;
     std::vector<Sec> solSecs;
+    static double meanStartEx[2];
+    static double meanEndEx[2];
+    static int numDaysEx[2];
+    static double compactEx[2];
   public:
     Sol();
     bool isOverlapping();
-    int evaluate();
+    void makeRaw();
+    void makeScaled();
+    void makeTotal();
     int getRating();
     std::vector<Sec> getSecs();
     void addSec(Sec& newSec);

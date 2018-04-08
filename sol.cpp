@@ -1,10 +1,12 @@
 #include <iostream>
+#include <cmath>
 #include <algorithm>
 #include <vector>
 #include <list>
+#include <set>
 #ifndef HEADERS
 #define HEADERS
-#include "time.h"
+#include "stime.h"
 #include "sec.h"
 #include "sol.h"
 #endif
@@ -22,6 +24,39 @@ bool Sol::isOverlapping()
   return false;
 }
 
+void Sol::makeRaw()
+{
+  std::set<char> days;
+  for(auto i=solTimes.begin();i!=solTimes.end();i++)
+  {
+    days.insert((*i).day);
+  }
+  
+  int temp=days.size();
+  if(temp>Sol::numDaysEx[1])
+    Sol::numDaysEx[1]=temp;
+  else if(temp<Sol::numDaysEx[0])
+    Sol::numDaysEx[0]=temp;
+  
+  /*
+  rawRatings[Sol::daysInClass]=(double)(temp);
+  rawRatings[Sol::compactness]=;
+  rawRatings[Sol::lateStart]=;
+  rawRatings[Sol::earlyFinish]=;
+  */
+}
+
+void Sol::makeScaled()
+{
+  //Once all solutions have been found
+  scaledRatings[Sol::daysInClass]=
+}
+
+void Sol::makeTotal()
+{
+  //Once all solutions have been found
+}
+
 int Sol::getRating()
 {
   return rating;
@@ -36,7 +71,7 @@ void Sol::addSec(Sec& newSec)
   auto j=newSec.getTimes().begin();
   for(auto i =solTimes.begin();i!=solTimes.end();i++)
   {
-    if(Time::cmp(*j, *i))
+    if(STime::cmp(*j, *i))
     {
       solTimes.insert(i,*j);
       j++;
