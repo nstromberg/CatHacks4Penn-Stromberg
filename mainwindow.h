@@ -2,6 +2,7 @@
 #define MAINWINDOW_H
 
 #include <QMainWindow>
+#include <set>
 #include "requirewidgetitem.h"
 #include "avoidwidgetitem.h"
 #include "lunchwidgetitem.h"
@@ -20,6 +21,7 @@ public:
     explicit MainWindow(QWidget *parent = 0);
     ~MainWindow();
     std::map<std::string,std::vector<std::vector<std::string>>> getItems();
+    std::set<Course> coursePool;
 
 private slots:
 
