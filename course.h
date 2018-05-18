@@ -5,7 +5,7 @@
 #ifndef COURSE_H
 #define COURSE_H
 #include "sec.h"
-#endif
+#include "coursewidget.h"
 class Course
 {
   public:
@@ -13,5 +13,8 @@ class Course
     Course(std::string newName, bool required);
     std::vector<Sec> sections;
     bool req;
+    CourseWidget box;
     std::string name;
 };
+
+#endif
