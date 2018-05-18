@@ -98,23 +98,56 @@ void MainWindow::on_calcButton_clicked()
 
         if(tmp.compare("ClassWidgetItem")==0)
         {
-            ui->plainTextEdit->appendPlainText(QString::fromStdString("CLASS VALUES: ")+QString::number(std::stoi(second[0][0])) + QString::number(std::stoi(second[0][1])));
+            try
+            {
+                ui->plainTextEdit->appendPlainText(QString::fromStdString("CLASS VALUES: ")+QString::number(std::stoi(second[0][0])) + QString::number(std::stoi(second[0][1])));
+            }catch (...)
+            {
+                ui->plainTextEdit->appendPlainText("CLASS VALUES: Invalid");
+            };
         }else if(tmp.compare("CreditWidgetItem")==0)
         {
-            ui->plainTextEdit->appendPlainText(QString::fromStdString("CREDIT VALUES: ")+QString::number(std::stoi(second[0][0])) + QString::number(std::stoi(second[0][1])));
+            try
+            {
+                ui->plainTextEdit->appendPlainText(QString::fromStdString("CREDIT VALUES: ")+QString::number(std::stoi(second[0][0])) + QString::number(std::stoi(second[0][1])));
+            }catch (...)
+            {
+                ui->plainTextEdit->appendPlainText("CREDIT VALUES: Invalid");
+            };
         }else if(tmp.compare("LunchWidgetItem")==0)
         {
-            ui->plainTextEdit->appendPlainText(QString::fromStdString("LUNCH VALUES: ")+QString::number(std::stoi(second[0][0])) + QString::number(std::stoi(second[0][1])));
-
+            try
+            {
+                ui->plainTextEdit->appendPlainText(QString::fromStdString("LUNCH VALUES: ")+QString::number(std::stoi(second[0][0])) + QString::number(std::stoi(second[0][1])));
+            }catch (...)
+            {
+                ui->plainTextEdit->appendPlainText("LUNCH VALUES: Invalid");
+            };
         }else if(tmp.compare("AvoidWidgetItem")==0)
         {
             for(int i = 0; i<second.size(); i++)
-                ui->plainTextEdit->appendPlainText(QString::fromStdString("AVOID VALUES: ")+QString::number(std::stoi(second[i][0])) + QString::fromStdString(second[i][1]));
+            {
+                try
+                {
+                    ui->plainTextEdit->appendPlainText(QString::fromStdString("AVOID VALUES: ")+QString::number(std::stoi(second[i][0])) + QString::fromStdString(second[i][1]));
+                }catch (...)
+                {
+                    ui->plainTextEdit->appendPlainText("AVOID VALUES: Invalid");
+                };
+            }
 
         }else if(tmp.compare("RequireWidgetItem")==0)
         {
             for(int i = 0; i<second.size(); i++)
-                ui->plainTextEdit->appendPlainText(QString::fromStdString("REQUIRE VALUES: ")+QString::number(std::stoi(second[i][0])) + QString::fromStdString(second[i][1]));
+            {
+                try
+                {
+                    ui->plainTextEdit->appendPlainText(QString::fromStdString("REQUIRE VALUES: ")+QString::number(std::stoi(second[i][0])) + QString::fromStdString(second[i][1]));
+                }catch (...)
+                {
+                    ui->plainTextEdit->appendPlainText("REQUIRE VALUES: Invalid");
+                };
+            }
         }
     }
 
@@ -141,7 +174,7 @@ void MainWindow::on_searchBox_returnPressed()
     //SEARCH
     std::string search = ui->searchBox->text().toStdString();
     std::ifstream fin;
-    fin.open("C:\\Users\\natha\\Documents\\CatHacks4GUI\\output.txt");
+    fin.open("output.txt");
     if(fin.fail())
     {
         ui->plainTextEdit->appendPlainText("Error: Could not read database file");
@@ -171,5 +204,10 @@ void MainWindow::on_searchBox_returnPressed()
         ui->plainTextEdit->appendPlainText("Class " + QString::fromStdString(search)+" not in database");
     }
     //ADD TO LIST
+
+}
+
+void MainWindow::on_remPrefButton_clicked()
+{
 
 }
