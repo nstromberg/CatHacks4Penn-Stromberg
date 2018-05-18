@@ -1,7 +1,12 @@
+#ifndef SOL_H
+#define SOL_H
+
 #include <iostream>
 #include <algorithm>
 #include <vector>
 #include <list>
+#include "sec.h"
+
 enum rateNames
 {
   daysInClass,compactness,lateStart,earlyFinish
@@ -34,3 +39,5 @@ class Sol
     void print();
 
 };
+
+#endif

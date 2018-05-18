@@ -9,11 +9,13 @@ Sol::Sol()
 {
   rating=0;
 }
-int Sol::numDaysEx[2]={0,0};
-double Sol::compactEx[2]={0,0};
-double Sol::meanEndEx[2]={0,0};
-double Sol::meanStartEx[2]={0,0};
-int Sol::weights[4]={0,0,0,0};
+
+int Sol::weights[] ={0,0,0,0};
+double meanStartEx[] = {0,0};
+double meanEndEx[]={0,0};
+double numDaysEx[]={0,0};
+double compactEx[]={0,0};
+
 bool Sol::isOverlapping()
 {
   for(auto i=solTimes.begin();i!=solTimes.end();i++)
@@ -62,7 +64,7 @@ void Sol::makeTotal()
 {
   //Once all solutions have been found
   rating=0;
-  for(int i=0;i<weights.size();i++)
+  for(int i=0;i<4;i++)
   {
     rating+=((double)(weights[i]))*scaledRatings[i];
   }
@@ -76,14 +78,14 @@ std::vector<Sec> Sol::getSecs()
 {
   return solSecs;
 }
-static void Sol::setWeights(int newWeights[])
+void Sol::setWeights(int newWeights[])
 {
   for(int i=0;i<4;i++)
   {
     weights[i]=newWeights[i];
   }
 }
-static void Sol::setSlider(int newSlider)
+void Sol::setSlider(int newSlider)
 {
   slider=newSlider;
 }

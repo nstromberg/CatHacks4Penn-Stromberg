@@ -1,12 +1,12 @@
+#ifndef SEC_H
+#define SEC_H
 #include <iostream>
 #include <string>
 #include <vector>
 #include <list>
 #include <fstream>
-#ifndef SEC_H
-#define SEC_H
 #include "stime.h"
-#endif
+
 class Sec
 {
   private:
@@ -25,3 +25,4 @@ class Sec
     void print();
 
 };
+#endif
