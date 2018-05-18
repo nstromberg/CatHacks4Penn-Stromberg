@@ -19,29 +19,19 @@ double compactEx[]={0,0};
 bool Sol::isOverlapping()
 {
   for(auto i=solTimes.begin();i!=solTimes.end();i++)
-  {  
-    if( (*i).sover(*(i++)) )
-      return true;
+  {
+    for(auto j=(i->second).begin();j!=(i->second).end();j++)
+    {  
+      if( (*j).sover(*(j++)) )
+        return true;
+    }
   }
   return false;
 }
 
 void Sol::makeRaw()
 {
-  std::set<char> days;
-  for(auto i=solTimes.begin();i!=solTimes.end();i++)
-  {
-    days.insert((*i).day);
-  }
-  
-  int temp=days.size();
-  if(temp>numDaysEx[1])
-    numDaysEx[1]=temp;
-  else if(temp<numDaysEx[0])
-    numDaysEx[0]=temp;
-  
-  
-  rawRatings[daysInClass]=(double)(temp);
+  rawRatings[daysInClass]=(double)(solTimes.size());
   /*
   rawRatings[compactness]=;
   rawRatings[lateStart]=;
@@ -92,8 +82,10 @@ void Sol::setSlider(int newSlider)
 void Sol::addSec(Sec& newSec)
 {
   solSecs.push_back(newSec);
-  auto j=newSec.getTimes().begin();
-  for(auto i =solTimes.begin();i!=solTimes.end();i++)
+  std::list<STime> temp=newSec.getTimes();
+  auto j=temp.begin();
+
+  for(auto i =solTimes[j->day].begin();i!=solTimes[j->day].end();i++)
   {
     if(STime::cmp(*j, *i))
     {

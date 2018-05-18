@@ -1,6 +1,7 @@
 #ifndef SOL_H
 #define SOL_H
 
+#include <map>
 #include <iostream>
 #include <algorithm>
 #include <vector>
@@ -17,7 +18,7 @@ class Sol
     double rating;
     std::vector<double> scaledRatings;
     std::vector<double> rawRatings;
-    std::list<STime> solTimes;
+    std::map<char,std::list<STime>> solTimes;
     std::vector<Sec> solSecs;
     static int slider;
     static int weights[4];
