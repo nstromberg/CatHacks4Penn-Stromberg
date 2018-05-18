@@ -174,7 +174,7 @@ void MainWindow::on_searchBox_returnPressed()
     //SEARCH
     std::string search = ui->searchBox->text().toStdString();
     std::ifstream fin;
-    fin.open("output.txt");
+    fin.open("C:\\Users\\natha\\GitHub\\CatHacks4Penn-Stromberg\\output.txt");
     if(fin.fail())
     {
         ui->plainTextEdit->appendPlainText("Error: Could not read database file");
