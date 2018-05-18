@@ -10,11 +10,12 @@ Sol::Sol()
   rating=0;
 }
 
+int Sol::slider = 0;
 int Sol::weights[] ={0,0,0,0};
-double meanStartEx[] = {0,0};
-double meanEndEx[]={0,0};
-double numDaysEx[]={0,0};
-double compactEx[]={0,0};
+double Sol::meanStartEx[] = {0,0};
+double Sol::meanEndEx[]={0,0};
+double Sol::numDaysEx[]={0,0};
+double Sol::compactEx[]={0,0};
 
 bool Sol::isOverlapping()
 {

@@ -39,7 +39,7 @@
      <item>
       <widget class="QLabel" name="label_3">
        <property name="text">
-        <string>(Military Time)</string>
+        <string>(24 Hr Time)</string>
        </property>
       </widget>
      </item>

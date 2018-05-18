@@ -29,6 +29,8 @@ private slots:
 
     void on_searchBox_returnPressed();
 
+    void on_remPrefButton_clicked();
+
 private:
     Ui::MainWindow *ui;
 };
