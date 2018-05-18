@@ -2,10 +2,6 @@
 #include <algorithm>
 #include <vector>
 #include <list>
-#ifndef SOL_H
-#define SOL_H
-#include "sec.h"
-#endif
 enum rateNames
 {
   daysInClass,compactness,lateStart,earlyFinish
