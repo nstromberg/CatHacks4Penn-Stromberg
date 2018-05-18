@@ -83,14 +83,15 @@ void Sol::addSec(Sec& newSec)
 {
   solSecs.push_back(newSec);
   std::list<STime> temp=newSec.getTimes();
-  auto j=temp.begin();
-
-  for(auto i =solTimes[j->day].begin();i!=solTimes[j->day].end();i++)
+  for(auto j=temp.begin();j!=temp.end();)
   {
-    if(STime::cmp(*j, *i))
+    for(auto i =solTimes[j->day].begin();i!=solTimes[j->day].end();i++)
     {
-      solTimes.insert(i,*j);
-      j++;
+      if(STime::cmp(*j, *i))
+      {
+        solTimes[j->day].insert(i,*j);
+        j++;
+      }
     }
   }
 }
