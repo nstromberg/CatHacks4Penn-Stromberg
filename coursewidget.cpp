@@ -27,6 +27,11 @@ bool CourseWidget::getRequired()
     return ui->checkBox->isChecked();
 }
 
+void CourseWidget::setRequired()
+{
+    courseObj.req = getRequired();
+}
+
 void CourseWidget::setParams(std::string name, bool required){
     courseObj.name = name;
     courseObj.req = required;

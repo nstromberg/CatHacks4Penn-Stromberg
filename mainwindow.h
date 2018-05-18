@@ -8,6 +8,7 @@
 #include "lunchwidgetitem.h"
 #include "creditwidgetitem.h"
 #include "classwidgetitem.h"
+#include "coursewidget.h"
 
 namespace Ui {
 class MainWindow;

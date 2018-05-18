@@ -5,7 +5,7 @@
 #include "requirewidgetitem.h"
 #include "classwidgetitem.h"
 #include "lunchwidgetitem.h"
-#include "coursewidget.h"
+#include "course.h"
 #include "sol.h"
 #include <fstream>
 #include <map>
@@ -161,6 +161,12 @@ void MainWindow::on_calcButton_clicked()
     weights[2] = ui->startWeight->value();
     weights[3] = ui->endWeight->value();
 
+    for(int row = 0; row < classList->count(); row++)
+    {
+             QListWidgetItem *item = classList->item(row);
+
+    }
+
     Sol::setSlider(compactSliderValue);
     Sol::setWeights(weights);
 
@@ -188,7 +194,7 @@ void MainWindow::on_searchBox_returnPressed()
     std::size_t pos;
 
 
-
+    Course newCourse;
     while(fin.good())
     {
         getline(fin,line);
@@ -201,6 +207,21 @@ void MainWindow::on_searchBox_returnPressed()
             course->setParams(search, false);
             listWidgetItem->setSizeHint(course->sizeHint());
             ui->classList->setItemWidget(listWidgetItem,course);
+            Sec tempSec;
+            Course tempCourse;
+            int numSec=0;
+            std::list<Sec> secList;
+            fin.ignore(search.length());
+            fin >> numSec;
+            fin.ignore(256,'\n');
+            for(int i = 0; i<numSec;i++)
+            {
+                tempSec.readSec(fin);
+                secList.insert(tempSec);
+            }
+            tempCourse.name = search;
+            tempCourse.sections = secList;
+            coursePool.insert(tempCourse);
             break;
         }
     }

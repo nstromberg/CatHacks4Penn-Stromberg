@@ -18,6 +18,7 @@ public:
     ~CourseWidget();
     bool getRequired();
     bool getName();
+    void setRequired();
     void setParams(std::string name, bool required);
     Course courseObj;
 private:

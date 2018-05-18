@@ -52,7 +52,7 @@ void Sec::readSec(std::ifstream& in)
     }
     this->times.sort(STime::cmp);
   }
-
+  in.ignore(256,'\n');
 }
 void Sec::setTimes(std::list<STime>& newTimes)
 {
