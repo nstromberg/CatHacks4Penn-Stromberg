@@ -5,6 +5,8 @@
 #include <list>
 #include <set>
 #include "sol.h"
+//raw ratings are unscaled numbers that rate solutions by a quality
+//scaled ratings are doubles from 0 to 1 that represent how the raw ratings stand 
 Sol::Sol()
 {
   rating=0;
@@ -12,6 +14,7 @@ Sol::Sol()
 
 int Sol::slider = 0;
 int Sol::weights[] ={0,0,0,0};
+//extrema of each raw rating
 double Sol::meanStartEx[] = {0,0};
 double Sol::meanEndEx[]={0,0};
 double Sol::numDaysEx[]={0,0};
@@ -21,7 +24,7 @@ bool Sol::isOverlapping()
 {
   for(auto i=solTimes.begin();i!=solTimes.end();i++)
   {
-    for(auto j=(i->second).begin();j!=(i->second).end();j++)
+    for(auto j=(i->second).begin();j!=(i->second).end()-1;j++)
     {  
       if( (*j).sover(*(j++)) )
         return true;
@@ -32,7 +35,18 @@ bool Sol::isOverlapping()
 
 void Sol::makeRaw()
 {
+  //count days that have times
   rawRatings[daysInClass]=(double)(solTimes.size());
+  //count space in between class times
+  rawRatings[compactness]=0;
+  for(auto i=solTimes.begin();i!=solTimes.end();i++)
+  {
+    //Not sure if iterator -1, +1 works
+    for(auto j=(i->second).start();j!=(i->second).end()-1;i++)
+    {
+      rawRatings[compactness]+=((j+1)->start)-(j->end);
+    }
+  }
   /*
   rawRatings[compactness]=;
   rawRatings[lateStart]=;
@@ -86,12 +100,19 @@ void Sol::addSec(Sec& newSec)
   std::list<STime> temp=newSec.getTimes();
   for(auto j=temp.begin();j!=temp.end();)
   {
-    for(auto i =solTimes[j->day].begin();i!=solTimes[j->day].end();i++)
+    if(solTimes.find(j->day)==solTimes.end())
     {
-      if(STime::cmp(*j, *i))
+      solTimes[j->day]=*j;
+    }
+    else
+    {
+      for(auto i =solTimes[j->day].begin();i!=solTimes[j->day].end();i++)
       {
-        solTimes[j->day].insert(i,*j);
-        j++;
+        if(STime::cmp(*j, *i))
+        {
+          solTimes[j->day].insert(i,*j);
+          j++;
+        }
       }
     }
   }
