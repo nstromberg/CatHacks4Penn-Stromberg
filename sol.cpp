@@ -47,11 +47,26 @@ void Sol::makeRaw()
       rawRatings[compactness]+=((j+1)->start)-(j->end);
     }
   }
-  /*
-  rawRatings[compactness]=;
-  rawRatings[lateStart]=;
-  rawRatings[earlyFinish]=;
-  */
+  //average start time
+  double num=0;
+  double den=0;
+  for(auto i = solTimes.begin();i!=solTimes.end();i++)
+  {
+    auto j=(i->second).begin();
+    num+=j->start;
+    den++;
+  }
+  rawRatings[lateStart]=num/den;
+  //average finish time
+  num=0;
+  den=0;
+  for(auto i = solTimes.begin();i!=solTimes.end();i++)
+  {
+    auto j=(i->second).rbegin();
+    num+=j->end;
+    den++;
+  }
+  rawRatings[earlyFinish]=num/den;
 }
 
 void Sol::makeScaled()
