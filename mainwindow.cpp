@@ -161,9 +161,9 @@ void MainWindow::on_calcButton_clicked()
     weights[2] = ui->startWeight->value();
     weights[3] = ui->endWeight->value();
 
-    for(int row = 0; row < classList->count(); row++)
+    for(int row = 0; row < ui->classList->count(); row++)
     {
-             QListWidgetItem *item = classList->item(row);
+             QListWidgetItem *item = ui->classList->item(row);
 
     }
 
@@ -217,7 +217,7 @@ void MainWindow::on_searchBox_returnPressed()
             for(int i = 0; i<numSec;i++)
             {
                 tempSec.readSec(fin);
-                secList.insert(tempSec);
+                secList.push_back(tempSec);
             }
             tempCourse.name = search;
             tempCourse.sections = secList;
